@@ -56,7 +56,7 @@ export default function CertificateForm() {
   };
 
   return (
-    <main className="min-h-screen bg-white p-8 flex flex-col items-center justify-center font-sans">
+    <main className="min-h-screen bg-white p-0 md:p-8 flex flex-col items-center justify-center font-sans">
       <div className="bg-[rgb(0,0,0,0.1)] bg-opacity-90 backdrop-blur-md rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-2xl transform transition-transform duration-500 hover:scale-105">
         <h1 className="text-4xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-800 text-center mb-8 flex items-center justify-center gap-3">
           <FaCertificate className="text-5xl" />
