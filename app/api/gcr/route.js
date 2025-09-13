@@ -40,7 +40,7 @@ const image = await pdfDoc.embedPng(imageBytes);
     const font = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
 
 
- const qrText = 'https://support-bangldesh.vercel.app';
+ const qrText = 'https://support-bangladesh.vercel.app';
   const qrDataUrl = await QRCode.toDataURL(qrText); // returns base64 image
 
   // ✅ 2. Convert base64 to Uint8Array
