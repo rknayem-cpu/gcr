@@ -10,6 +10,12 @@ import {
   FaMale,
   FaFemale,
   FaBuilding,
+  FaUniversity,
+  FaCalendarAlt,
+  FaClipboardCheck,
+  FaHashtag,
+  FaIdBadge,
+  FaCheckCircle,
 } from 'react-icons/fa';
 
 export default function CertificateForm() {
@@ -18,6 +24,12 @@ export default function CertificateForm() {
   const [father, setFather] = useState('');
   const [mother, setMother] = useState('');
   const [center, setCenter] = useState('');
+  const [session, setSession] = useState('');
+  const [grade, setGrade] = useState('');
+  const [branch, setBranch] = useState('');
+  const [reg, setReg] = useState('');
+  const [issue, setIssue] = useState('');
+  const [serial, setSerial] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleDownload = async () => {
@@ -31,17 +43,26 @@ export default function CertificateForm() {
     try {
       const res = await fetch('/api/gcr', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, course, father, mother, center }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          course,
+          father,
+          mother,
+          center,
+          session,
+          grade,
+          branch,
+          reg,
+          issue,
+          serial,
+        }),
       });
 
       if (!res.ok) throw new Error('Failed to generate certificate');
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-
       const a = document.createElement('a');
       a.href = url;
       a.download = 'certificate.pdf';
@@ -55,55 +76,101 @@ export default function CertificateForm() {
     }
   };
 
+  const inputFields = [
+    {
+      label: 'Name',
+      icon: <FaUser />,
+      value: name,
+      setValue: setName,
+      placeholder: 'Enter your full name',
+    },
+    {
+      label: 'Course',
+      icon: <FaBook />,
+      value: course,
+      setValue: setCourse,
+      placeholder: 'Enter the course name',
+    },
+    {
+      label: "Father's Name",
+      icon: <FaMale />,
+      value: father,
+      setValue: setFather,
+      placeholder: "Enter your father's name",
+    },
+    {
+      label: "Mother's Name",
+      icon: <FaFemale />,
+      value: mother,
+      setValue: setMother,
+      placeholder: "Enter your mother's name",
+    },
+    {
+      label: 'Center',
+      icon: <FaBuilding />,
+      value: center,
+      setValue: setCenter,
+      placeholder: 'Enter the center name',
+      colSpan: 'md:col-span-2',
+    },
+    {
+      label: 'Session',
+      icon: <FaCalendarAlt />,
+      value: session,
+      setValue: setSession,
+      placeholder: 'e.g., 2022-2023',
+    },
+    {
+      label: 'Grade',
+      icon: <FaClipboardCheck />,
+      value: grade,
+      setValue: setGrade,
+      placeholder: 'Enter grade or result',
+    },
+    {
+      label: 'Branch',
+      icon: <FaUniversity />,
+      value: branch,
+      setValue: setBranch,
+      placeholder: 'Enter branch name',
+    },
+    {
+      label: 'Registration No.',
+      icon: <FaIdBadge />,
+      value: reg,
+      setValue: setReg,
+      placeholder: 'Enter registration number',
+    },
+    {
+      label: 'Date of Issue',
+      icon: <FaCalendarAlt />,
+      value: issue,
+      setValue: setIssue,
+      placeholder: 'DD/MM/YYYY',
+    },
+    {
+      label: 'Serial No.',
+      icon: <FaHashtag />,
+      value: serial,
+      setValue: setSerial,
+      placeholder: 'Enter serial number',
+    },
+  ];
+
   return (
-    <main className="min-h-screen bg-white p-0 md:p-8 flex flex-col items-center justify-center font-sans">
-      <div className="bg-[rgb(0,0,0,0.1)] bg-opacity-90 backdrop-blur-md rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-2xl transform transition-transform duration-500 hover:scale-105">
+    <main className="min-h-screen bg-white p-0  flex flex-col items-center justify-center font-sans">
+      <div className="bg-[rgb(0,0,0,0.1)] 
+      bg-opacity-90 backdrop-blur-md rounded-3xl shadow-2xl p-8 
+      md:p-12 w-full max-w-full transform transition-transform duration-500 ">
         <h1 className="text-4xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-800 text-center mb-8 flex items-center justify-center gap-3">
           <FaCertificate className="text-5xl" />
           Generate Your Certificate
         </h1>
-        <img src="/cr.png" alt="" className="mx-auto mb-6" />
+
+        <img src="/cr.png" alt="Certificate Icon" className="mx-auto mb-6 w-32 h-32 object-contain" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* All input fields — same as your version */}
-          {[
-            {
-              label: 'Name',
-              icon: <FaUser />,
-              value: name,
-              setValue: setName,
-              placeholder: 'Enter your full name',
-            },
-            {
-              label: 'Course',
-              icon: <FaBook />,
-              value: course,
-              setValue: setCourse,
-              placeholder: 'Enter the course name',
-            },
-            {
-              label: "Father's Name",
-              icon: <FaMale />,
-              value: father,
-              setValue: setFather,
-              placeholder: "Enter your father's name",
-            },
-            {
-              label: "Mother's Name",
-              icon: <FaFemale />,
-              value: mother,
-              setValue: setMother,
-              placeholder: "Enter your mother's name",
-            },
-            {
-              label: 'Center',
-              icon: <FaBuilding />,
-              value: center,
-              setValue: setCenter,
-              placeholder: 'Enter the center name',
-              colSpan: 'md:col-span-2',
-            },
-          ].map((field, i) => (
+          {inputFields.map((field, i) => (
             <div
               className={`relative group ${field.colSpan || ''}`}
               key={i}
@@ -123,18 +190,16 @@ export default function CertificateForm() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <button
             onClick={handleDownload}
             disabled={loading}
-            className={`
-              w-full md:w-auto px-8 py-4 text-white font-bold rounded-full text-lg shadow-lg
+            className={`w-full md:w-auto px-8 py-4 text-white font-bold rounded-full text-lg shadow-lg
               bg-gradient-to-r from-purple-600 to-indigo-800
               hover:from-purple-700 hover:to-indigo-900
               transform transition-all duration-300
               ${loading ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:scale-105 active:scale-95'}
-              flex items-center justify-center gap-3
-            `}
+              flex items-center justify-center gap-3`}
           >
             {loading ? (
               <>

@@ -7,7 +7,7 @@ import path from 'path';
 import QRCode from 'qrcode';
 export async function POST(req) {
   const body = await req.json();
-  const { name, course,father,mother,center,reg } = body;
+  const { name, course,father,mother,center, session, grade, branch, reg, issue, serial } = body;
 
   if (!name || !course) {
     return NextResponse.json({ message: 'Missing name or course' }, { status: 400 });
@@ -61,7 +61,7 @@ const image = await pdfDoc.embedPng(imageBytes);
     page.drawText(name, {
        x:375,
       y: 292,
-      size: 12,
+      size: 10,
       font,
       color: rgb(0, 0, 0),
     });
@@ -69,14 +69,14 @@ const image = await pdfDoc.embedPng(imageBytes);
      page.drawText(father, {
        x:335,
       y: 266,
-      size: 12,
+      size: 10,
       font,
       color: rgb(0, 0, 0),
     });
  page.drawText(mother, {
        x:290,
       y: 243,
-      size: 12,
+      size: 10,
       font,
       color: rgb(0, 0, 0),
     });
@@ -87,7 +87,7 @@ const image = await pdfDoc.embedPng(imageBytes);
     page.drawText(course, {
      x:390,
       y: 216,
-      size: 12,
+      size: 10,
       font,
       color: rgb(0, 0, 0.8),
     });
@@ -96,7 +96,62 @@ const image = await pdfDoc.embedPng(imageBytes);
  page.drawText(center, {
        x:295,
       y: 194,
-      size: 12,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+page.drawText(branch, {
+       x:725,
+      y: 194,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+
+ page.drawText(session, {
+       x:405,
+      y: 175,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+
+    page.drawText(grade, {
+       x:730,
+      y: 175,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+
+
+
+    page.drawText(reg, {
+       x:350,
+      y: 151,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+
+    page.drawText(issue, {
+       x:525,
+      y: 151,
+      size: 10,
+      font,
+      color: rgb(0, 0, 0),
+    });
+
+
+    page.drawText(serial, {
+       x:710,
+      y: 151,
+      size: 10,
       font,
       color: rgb(0, 0, 0),
     });
